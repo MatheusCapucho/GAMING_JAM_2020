@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,13 +8,16 @@ public class PlayerController : MonoBehaviour
 {   
     public Rigidbody2D rb;
     public Camera cam;
-    
-    private  Vector2 movementInput;
-    private Vector2 mousePosition;
-    private float speed = 10f;
+    private SpriteRenderer sr;
+
+    private Vector2 movementInput;
+    public float speed;
+
+
    
     private void Awake()
     {
+        sr = this.gameObject.GetComponent<SpriteRenderer>();
         rb = this.gameObject.GetComponent<Rigidbody2D>();   
     }
 
@@ -22,13 +26,33 @@ public class PlayerController : MonoBehaviour
         movementInput.x = Input.GetAxisRaw("Horizontal");
         movementInput.y = Input.GetAxisRaw("Vertical");
 
-        mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        if (movementInput == Vector2.zero)
+        {
+            // idle
+        }
+        else if (movementInput.x > 0)
+        {
+            // animacao pro lado
+            sr.flipX = true;
+        }
+        else if (movementInput.x < 0)
+        {
+            // animacao pro lado
+            sr.flipX = false;
+        }
+        else if (movementInput.y > 0)
+        {
+            // animacao pra cima
 
+        }
+        else if (movementInput.y < 0)
+        {
+            // animacao pra baixo
+        }
     }
     private void FixedUpdate() {
 
-        Vector2 lookAtMouse = mousePosition - rb.position;
-
         rb.velocity = movementInput * speed;
+     
     }
 }
