@@ -10,14 +10,7 @@ public class DialogueSystem : MonoBehaviour
 
     private Queue<string> frases;
 
-
-    /* 
-        Para comecar o texto, deve-se implementar um trigger no NPC/Objeto interagido. 
-        Este, deve passar as informacoes de qual texto a ser passado (Dialogue Trigger).
-        Implementar, tambem um jeito de sumir a UI (provavelmente, escala = 000)
-
-         
-         */
+    public Animator anim;
 
     void Start()
     {
@@ -26,7 +19,7 @@ public class DialogueSystem : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
-        // animacao de abrir o balao
+        anim.SetBool("Pop", true);
 
         frases.Clear();
 
@@ -52,6 +45,6 @@ public class DialogueSystem : MonoBehaviour
     }
     public void EndConversation()
     {
-        // animacao pra fechar o balao
+        anim.SetBool("Pop", false);
     }
 }
